@@ -22,7 +22,7 @@ class MainApp extends StatelessWidget {
             width: double.infinity,
             height: double.infinity,
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 255, 255, 255),
+              color: Color.fromARGB(255, 189, 5, 5),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
