@@ -1,0 +1,22 @@
+name: cool_web_site
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_html: ^3.0.0
+  flutter_widget_from_html: ^0.16.0
+  webview_flutter_plus: ^0.4.19
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
