@@ -17,12 +17,12 @@ class _VideoAppState extends State<VideoApp> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.networkUrl(
-        Uri.parse('https://www.youtube.com/watch?v=dQw4w9WgXcQ'))
+    _controller = VideoPlayerController.networkUrl(Uri.parse(
+        'https://raw.githubusercontent.com/maximu211/maximu211.github.io/code/assets/music.mp4'))
       ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {});
       });
+    _controller.play();
   }
 
   @override
@@ -30,25 +30,24 @@ class _VideoAppState extends State<VideoApp> {
     return MaterialApp(
       title: 'Video Demo',
       home: Scaffold(
+        backgroundColor: Colors.black,
         body: Center(
           child: _controller.value.isInitialized
-              ? AspectRatio(
-                  aspectRatio: _controller.value.aspectRatio,
-                  child: VideoPlayer(_controller),
+              ? Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    Text(
+                      "ХА ДЕБІЛ ТЕБЕ ЗАРІКРОЛИЛИ",
+                      style: TextStyle(fontSize: 30, color: Colors.white),
+                    ),
+                    const SizedBox(height: 20),
+                    AspectRatio(
+                      aspectRatio: _controller.value.aspectRatio,
+                      child: VideoPlayer(_controller),
+                    ),
+                  ],
                 )
-              : Container(),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              _controller.value.isPlaying
-                  ? _controller.pause()
-                  : _controller.play();
-            });
-          },
-          child: Icon(
-            _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-          ),
+              : CircularProgressIndicator(),
         ),
       ),
     );
