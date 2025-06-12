@@ -54,8 +54,14 @@ class _VideoScreenState extends State<VideoScreen> {
         backgroundColor: Colors.black,
         body: Center(
           child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                fixedSize: Size(400, 400), backgroundColor: Colors.white),
             onPressed: _startVideo,
-            child: const Text('Я КЛАСНА КНОПКА!!ТИКНИ НА МЕНЕ!!!!!'),
+            child: const Text(
+              'Я КЛАСНА КНОПКА!!ТИКНИ НА МЕНЕ!!!!!',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 30, color: Colors.black),
+            ),
           ),
         ),
       );
