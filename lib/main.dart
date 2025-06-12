@@ -72,15 +72,20 @@ class _VideoScreenState extends State<VideoScreen> {
       builder: (context, player) {
         return Scaffold(
           backgroundColor: Colors.black,
-          appBar: AppBar(
-            backgroundColor: Colors.black,
-            title: const Text(
-              'ХА, ДЕБІЛ, ТЕБЕ ЗАРІКРОЛИЛИ!!! ЛОХ',
-              style: TextStyle(color: Colors.white, fontSize: 30),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Text(
+                  'ХА, ДЕБІЛ, ТЕБЕ ЗАРІКРОЛИЛИ!!! ЛОХ',
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(color: Colors.white, fontSize: 30),
+                ),
+                Center(
+                  child: SizedBox(
+                      width: double.infinity, height: 500, child: player),
+                ),
+              ],
             ),
-          ),
-          body: Center(
-            child: SizedBox(width: double.infinity, height: 500, child: player),
           ),
         );
       },
