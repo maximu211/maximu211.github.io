@@ -1,61 +1,83 @@
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 void main() => runApp(const VideoApp());
 
-/// Stateful widget to fetch and then display video content.
-class VideoApp extends StatefulWidget {
+class VideoApp extends StatelessWidget {
   const VideoApp({super.key});
 
   @override
-  _VideoAppState createState() => _VideoAppState();
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: VideoScreen(),
+    );
+  }
 }
 
-class _VideoAppState extends State<VideoApp> {
-  late VideoPlayerController _controller;
+class VideoScreen extends StatefulWidget {
+  const VideoScreen({super.key});
 
   @override
-  void initState() {
-    super.initState();
-    _controller = VideoPlayerController.networkUrl(Uri.parse(
-        'https://raw.githubusercontent.com/maximu211/maximu211.github.io/code/assets/music.mp4'))
-      ..initialize().then((_) {
-        setState(() {});
-      });
-    _controller.play();
-  }
+  State<VideoScreen> createState() => _VideoScreenState();
+}
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Video Demo',
-      home: Scaffold(
-        backgroundColor: Colors.black,
-        body: Center(
-          child: _controller.value.isInitialized
-              ? Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    Text(
-                      "ХА ДЕБІЛ ТЕБЕ ЗАРІКРОЛИЛИ",
-                      style: TextStyle(fontSize: 30, color: Colors.white),
-                    ),
-                    const SizedBox(height: 20),
-                    AspectRatio(
-                      aspectRatio: _controller.value.aspectRatio,
-                      child: VideoPlayer(_controller),
-                    ),
-                  ],
-                )
-              : CircularProgressIndicator(),
+class _VideoScreenState extends State<VideoScreen> {
+  YoutubePlayerController? _controller;
+  bool _videoStarted = false;
+
+  void _startVideo() {
+    setState(() {
+      _videoStarted = true;
+      _controller = YoutubePlayerController.fromVideoId(
+        videoId: 'dQw4w9WgXcQ',
+        autoPlay: true,
+        params: const YoutubePlayerParams(
+          showControls: true,
+          showFullscreenButton: true,
+          loop: true,
+          mute: false, // тепер можна вмикати зі звуком
         ),
-      ),
-    );
+      );
+    });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.close();
     super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_videoStarted) {
+      return Scaffold(
+        backgroundColor: Colors.black,
+        body: Center(
+          child: ElevatedButton(
+            onPressed: _startVideo,
+            child: const Text('Я КЛАСНА КНОПКА!!ТИКНИ НА МЕНЕ!!!!!'),
+          ),
+        ),
+      );
+    }
+
+    return YoutubePlayerScaffold(
+      controller: _controller!,
+      builder: (context, player) {
+        return Scaffold(
+          backgroundColor: Colors.black,
+          appBar: AppBar(
+            backgroundColor: Colors.black,
+            title: const Text(
+              'ХА, ДЕБІЛ, ТЕБЕ ЗАРІКРОЛИЛИ!!! ЛОХ',
+              style: TextStyle(color: Colors.white, fontSize: 30),
+            ),
+          ),
+          body: Center(
+            child: SizedBox(width: double.infinity, height: 500, child: player),
+          ),
+        );
+      },
+    );
   }
 }

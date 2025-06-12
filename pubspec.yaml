@@ -11,8 +11,10 @@ dependencies:
     sdk: flutter
   flutter_html: ^3.0.0
   flutter_widget_from_html: ^0.16.0
+  gif: ^2.3.0
   video_player: ^2.10.0
   webview_flutter_plus: ^0.4.19
+  youtube_player_iframe: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -24,4 +26,5 @@ dev_dependencies:
 flutter:
   assets:
     - assets/music.mp4
+    - assets/shit.gif
   uses-material-design: true
